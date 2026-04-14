@@ -1,0 +1,78 @@
+xml
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center">
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnShowTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Time"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Time"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+...............................................................................................................................
+
+java
+
+package com.example.timepickerapp;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    TimePicker timePicker;
+    Button button;
+    TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        timePicker = findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
+        button = findViewById(R.id.btnShowTime);
+        textView = findViewById(R.id.tvTime);
+
+        button.setOnClickListener(v -> {
+
+            int hour, minute;
+
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                hour = timePicker.getHour();
+                minute = timePicker.getMinute();
+            } else {
+                hour = timePicker.getCurrentHour();
+                minute = timePicker.getCurrentMinute();
+            }
+
+            String selectedTime = "Selected Time: " + hour + ":" + minute;
+            textView.setText(selectedTime);
+        });
+    }
+}
