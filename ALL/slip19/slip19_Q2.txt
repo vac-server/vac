@@ -1,0 +1,280 @@
+main_activity.xml
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:stretchColumns="1">
+
+        <!-- Title -->
+        <TableRow>
+            <TextView
+                android:text="Membership Form"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_span="2"
+                android:gravity="center"
+                android:paddingBottom="16dp"/>
+        </TableRow>
+
+        <!-- Full Name -->
+        <TableRow>
+            <TextView android:text="Full Name" android:padding="8dp"/>
+            <EditText android:id="@+id/etName" android:hint="Enter name"/>
+        </TableRow>
+
+        <!-- Gender -->
+        <TableRow>
+            <TextView android:text="Gender" android:padding="8dp"/>
+            <RadioGroup
+                android:id="@+id/rgGender"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/rbMale" android:text="M"/>
+                <RadioButton android:id="@+id/rbFemale" android:text="F"/>
+                <RadioButton android:id="@+id/rbOther" android:text="Other"/>
+            </RadioGroup>
+        </TableRow>
+
+        <!-- Weight & Height -->
+        <TableRow>
+            <EditText
+                android:id="@+id/etWeight"
+                android:hint="Current Weight"
+                android:inputType="numberDecimal"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/etHeight"
+                android:hint="Height"
+                android:inputType="numberDecimal"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+        </TableRow>
+
+        <!-- Goal Weight & Age -->
+        <TableRow>
+            <EditText
+                android:id="@+id/etGoal"
+                android:hint="Goal Weight"
+                android:inputType="numberDecimal"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/etAge"
+                android:hint="Age"
+                android:inputType="number"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+        </TableRow>
+
+        <!-- Phone -->
+        <TableRow>
+            <TextView android:text="Phone" android:padding="8dp"/>
+            <EditText
+                android:id="@+id/etPhone"
+                android:inputType="phone"
+                android:hint="Phone number"/>
+        </TableRow>
+
+        <!-- Address -->
+        <TableRow>
+            <TextView android:text="Address" android:padding="8dp"/>
+            <EditText android:id="@+id/etAddress" android:hint="Enter address"/>
+        </TableRow>
+
+        <!-- Checkbox -->
+        <TableRow>
+            <CheckBox
+                android:id="@+id/cbAgree"
+                android:text="I accept membership rules"
+                android:layout_span="2"/>
+        </TableRow>
+
+        <!-- Submit Button -->
+        <TableRow>
+            <Button
+                android:id="@+id/btnSubmit"
+                android:text="SUBMIT"
+                android:layout_span="2"
+                android:layout_marginTop="16dp"/>
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>
+
+
+
+
+..............................................................................................................................
+
+
+activity_second.xml
+
+
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:stretchColumns="1">
+
+        <TableRow><TextView android:text="Name"/><TextView android:id="@+id/tvName"/></TableRow>
+        <TableRow><TextView android:text="Gender"/><TextView android:id="@+id/tvGender"/></TableRow>
+        <TableRow><TextView android:text="Weight"/><TextView android:id="@+id/tvWeight"/></TableRow>
+        <TableRow><TextView android:text="Height"/><TextView android:id="@+id/tvHeight"/></TableRow>
+        <TableRow><TextView android:text="Goal"/><TextView android:id="@+id/tvGoal"/></TableRow>
+        <TableRow><TextView android:text="Age"/><TextView android:id="@+id/tvAge"/></TableRow>
+        <TableRow><TextView android:text="Phone"/><TextView android:id="@+id/tvPhone"/></TableRow>
+        <TableRow><TextView android:text="Address"/><TextView android:id="@+id/tvAddress"/></TableRow>
+
+    </TableLayout>
+</ScrollView>
+
+
+............................................................................................................................................
+
+MainActivity.java
+
+
+package com.example.membershipform;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.*;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText name, weight, height, goal, age, phone, address;
+    RadioGroup genderGroup;
+    CheckBox agree;
+    Button submit;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        name = findViewById(R.id.etName);
+        weight = findViewById(R.id.etWeight);
+        height = findViewById(R.id.etHeight);
+        goal = findViewById(R.id.etGoal);
+        age = findViewById(R.id.etAge);
+        phone = findViewById(R.id.etPhone);
+        address = findViewById(R.id.etAddress);
+
+        genderGroup = findViewById(R.id.rgGender);
+        agree = findViewById(R.id.cbAgree);
+        submit = findViewById(R.id.btnSubmit);
+
+        submit.setOnClickListener(v -> {
+
+            String n = name.getText().toString();
+            String w = weight.getText().toString();
+            String h = height.getText().toString();
+            String g = goal.getText().toString();
+            String a = age.getText().toString();
+            String p = phone.getText().toString();
+            String ad = address.getText().toString();
+
+            int id = genderGroup.getCheckedRadioButtonId();
+            RadioButton rb = findViewById(id);
+            String gender = rb.getText().toString();
+
+            Intent i = new Intent(MainActivity.this, SecondActivity.class);
+
+            i.putExtra("name", n);
+            i.putExtra("gender", gender);
+            i.putExtra("weight", w);
+            i.putExtra("height", h);
+            i.putExtra("goal", g);
+            i.putExtra("age", a);
+            i.putExtra("phone", p);
+            i.putExtra("address", ad);
+
+            startActivity(i);
+        });
+    }
+}
+
+
+
+
+
+.......................................................................................................................................
+
+SecondActivity.java
+
+
+package com.example.membershipform;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SecondActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        ((TextView)findViewById(R.id.tvName)).setText(getIntent().getStringExtra("name"));
+        ((TextView)findViewById(R.id.tvGender)).setText(getIntent().getStringExtra("gender"));
+        ((TextView)findViewById(R.id.tvWeight)).setText(getIntent().getStringExtra("weight"));
+        ((TextView)findViewById(R.id.tvHeight)).setText(getIntent().getStringExtra("height"));
+        ((TextView)findViewById(R.id.tvGoal)).setText(getIntent().getStringExtra("goal"));
+        ((TextView)findViewById(R.id.tvAge)).setText(getIntent().getStringExtra("age"));
+        ((TextView)findViewById(R.id.tvPhone)).setText(getIntent().getStringExtra("phone"));
+        ((TextView)findViewById(R.id.tvAddress)).setText(getIntent().getStringExtra("address"));
+    }
+}
+
+
+...................................................................................................................................
+
+manifest
+
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Membershipform">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SecondActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
