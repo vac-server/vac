@@ -1,0 +1,82 @@
+xml
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:hint="Enter Phone Number"
+        android:inputType="phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnCall"
+        android:text="Call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+........................................................................................................................
+
+java
+
+package com.example.callapp;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText phone;
+    Button callBtn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        phone = findViewById(R.id.etPhone);
+        callBtn = findViewById(R.id.btnCall);
+
+        callBtn.setOnClickListener(v -> {
+
+            String number = phone.getText().toString();
+
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + number));
+
+            // Check permission
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CALL_PHONE}, 1);
+                return;
+            }
+
+            startActivity(intent);
+        });
+    }
+}
+
+...................................................................................................................................................
+
+add this in manifest
+
+
+<uses-permission android:name="android.permission.CALL_PHONE"/>

@@ -1,0 +1,110 @@
+This is SLIP5 Q2
+
+main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnShowDialog"
+        android:text="Show Friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+..................................................................
+dialog_friends.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="Select a Friend"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnAmit"
+        android:text="Amit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnRahul"
+        android:text="Rahul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnNeha"
+        android:text="Neha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+............................................................................................................
+
+java
+
+
+package com.example.frienddialog;
+
+import android.app.AlertDialog;
+import android.os.Bundle;
+import android.view.*;
+import android.widget.*;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btnShowDialog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnShowDialog = findViewById(R.id.btnShowDialog);
+
+        btnShowDialog.setOnClickListener(v -> showCustomDialog());
+    }
+
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_friends, null);
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Buttons inside dialog
+        Button btnAmit = view.findViewById(R.id.btnAmit);
+        Button btnRahul = view.findViewById(R.id.btnRahul);
+        Button btnNeha = view.findViewById(R.id.btnNeha);
+
+        btnAmit.setOnClickListener(v ->
+                Toast.makeText(this, "Hello Amit!", Toast.LENGTH_SHORT).show());
+
+        btnRahul.setOnClickListener(v ->
+                Toast.makeText(this, "Hello Rahul!", Toast.LENGTH_SHORT).show());
+
+        btnNeha.setOnClickListener(v ->
+                Toast.makeText(this, "Hello Neha!", Toast.LENGTH_SHORT).show());
+    }
+}

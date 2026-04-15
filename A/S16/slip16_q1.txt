@@ -1,0 +1,338 @@
+main_xml
+
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/etName"
+            android:hint="Enter Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etSurname"
+            android:hint="Enter Surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etClass"
+            android:hint="Enter Class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Gender -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rbMale"
+                android:text="Male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbFemale"
+                android:text="Female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RadioGroup>
+
+        <!-- Hobbies -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hobbies"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cbSports"
+            android:text="Sports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/cbMusic"
+            android:text="Music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/cbReading"
+            android:text="Reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etMarks"
+            android:hint="Enter Marks"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:text="Submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</ScrollView>
+
+...............................................................................................................
+
+second.xml
+
+
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:padding="16dp">
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Surname"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvSurname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Class"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hobbies"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvHobbies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marks"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvMarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"/>
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>
+
+..........................................................................................................................
+
+main.java
+
+
+package com.example.studentapp;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText name, surname, studentClass, marks;
+    RadioGroup genderGroup;
+    CheckBox sports, music, reading;
+    Button submit;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        name = findViewById(R.id.etName);
+        surname = findViewById(R.id.etSurname);
+        studentClass = findViewById(R.id.etClass);
+        marks = findViewById(R.id.etMarks);
+
+        genderGroup = findViewById(R.id.rgGender);
+
+        sports = findViewById(R.id.cbSports);
+        music = findViewById(R.id.cbMusic);
+        reading = findViewById(R.id.cbReading);
+
+        submit = findViewById(R.id.btnSubmit);
+
+        submit.setOnClickListener(v -> {
+
+            String n = name.getText().toString();
+            String s = surname.getText().toString();
+            String c = studentClass.getText().toString();
+            String m = marks.getText().toString();
+
+            int selectedId = genderGroup.getCheckedRadioButtonId();
+            String gender = "";
+            if (selectedId != -1) {
+                RadioButton genderBtn = findViewById(selectedId);
+                gender = genderBtn.getText().toString();
+            }
+
+            String hobbies = "";
+            if (sports.isChecked()) hobbies += "Sports ";
+            if (music.isChecked()) hobbies += "Music ";
+            if (reading.isChecked()) hobbies += "Reading ";
+
+            Intent i = new Intent(MainActivity.this, SecondActivity.class);
+            i.putExtra("name", n);
+            i.putExtra("surname", s);
+            i.putExtra("class", c);
+            i.putExtra("gender", gender);
+            i.putExtra("hobbies", hobbies);
+            i.putExtra("marks", m);
+
+            startActivity(i);
+        });
+    }
+}
+
+..........................................................................................................................
+
+Second.java
+
+
+package com.example.studentapp;
+
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SecondActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        TextView name = findViewById(R.id.tvName);
+        TextView surname = findViewById(R.id.tvSurname);
+        TextView studentClass = findViewById(R.id.tvClass);
+        TextView gender = findViewById(R.id.tvGender);
+        TextView hobbies = findViewById(R.id.tvHobbies);
+        TextView marks = findViewById(R.id.tvMarks);
+
+        name.setText(getIntent().getStringExtra("name"));
+        surname.setText(getIntent().getStringExtra("surname"));
+        studentClass.setText(getIntent().getStringExtra("class"));
+        gender.setText(getIntent().getStringExtra("gender"));
+        hobbies.setText(getIntent().getStringExtra("hobbies"));
+        marks.setText(getIntent().getStringExtra("marks"));
+    }
+}
+
+
+.........................................................................................................................
+
+
+manifest
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Studentapp">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SecondActivity"
+            android:exported="true">
+        </activity>
+    </application>
+
+</manifest>
