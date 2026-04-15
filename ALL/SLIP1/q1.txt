@@ -1,74 +1,80 @@
-This is SLIP1 Q1
 activity_main.xml
-
+---------------------------------------
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    >
+    android:gravity="center">
 
     <TextView
+        android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Activity Life Cycle Demo!" />
+        android:text="Activity Lifecycle Example"
+        android:textSize="18sp"
+        android:padding="16dp" />
+
 </LinearLayout>
-
+---------------------------------------
 MainActivity.java
-
-package com.example.activity_life_cycle;
+---------------------------------------
+package com.example.lifecycle;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    private static String TAG="Lifecycle Demo";
+
+    private static final String TAG = "ActivityLifecycle";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this,"onCreate",Toast.LENGTH_SHORT).show();
+        logAndToast("onCreate: Activity is created");
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        Log.d(TAG,"On Start Called");
+        logAndToast("onStart: Activity is visible to the user");
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        Log.d(TAG,"On Resume Called");
+        logAndToast("onResume: Activity is now interacting with the user");
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
-        Log.d(TAG,"On Pause Called");
+        logAndToast("onPause: Activity is partially obscured or about to stop");
     }
+
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
-        Log.d(TAG,"On Stop Called");
+        logAndToast("onStop: Activity is no longer visible to the user");
     }
+
     @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Log.d(TAG,"On Destroy Called");
-    }
-    @Override
-    protected void onRestart(){
+    protected void onRestart() {
         super.onRestart();
-        Log.d(TAG,"On Restart Called");
+        logAndToast("onRestart: Activity is restarting after being stopped");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        logAndToast("onDestroy: Activity is destroyed and removed from memory");
+    }
+
+    private void logAndToast(String message) {
+        Log.d(TAG, message);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
